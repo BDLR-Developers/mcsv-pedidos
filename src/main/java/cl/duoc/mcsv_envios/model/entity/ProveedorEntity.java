@@ -1,25 +1,28 @@
 package cl.duoc.mcsv_envios.model.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.cglib.core.Local;
 
-import java.time.LocalDate;
-
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
+@Entity
+@Table(name = "proveedor")
 public class ProveedorEntity {
-    private String idProveedor;
+    @Id
+    private int idProveedor;
     private String nombreProv;
-    private int telefonoProv;
+    private String telefonoProv;
     private String correoProv;
     private LocalDate fechaCreacion;
     private LocalDate fechaActualizacion;
-    private String idUsuario;
+    private int idUsuario;
 }

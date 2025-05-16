@@ -1,24 +1,27 @@
 package cl.duoc.mcsv_envios.model.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
+@Entity
+@Table(name = "pedido")
 public class PedidoEntity {
+    @Id
     private int numeroPedido;
     private LocalDate fechaPedido;
     private int montoPedido;
-    private String estadoPedido;
-    private String idProveedor;
-    private String idUsuario;
-    private String idBodega;
-    private String idSucursal;
+    private int estadoPedido;
+    private int idProveedor;
+    private int idUsuario;
+    private int idBodega;
 }
