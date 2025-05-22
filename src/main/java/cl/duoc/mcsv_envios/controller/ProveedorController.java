@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cl.duoc.mcsv_envios.model.dto.ProveedorDTO;
 import cl.duoc.mcsv_envios.service.ProveedorService;
 import lombok.RequiredArgsConstructor;
+
 
 
 @RestController
@@ -57,6 +59,11 @@ public class ProveedorController {
     @DeleteMapping("/{id}")
     public void deleteProveedor(@PathVariable int id) {
         proveedorService.deleteProveedor(id);
+    }
+
+    @GetMapping("/nombre")
+    public List<ProveedorDTO> getProveedorByNombre(@RequestParam String nombre) {
+        return proveedorService.getProveedorByNombre(nombre);
     }
 
 }

@@ -55,4 +55,9 @@ public class ProveedorService {
             proveedorRepository.delete(entity);
         }
     }
+    // Método para buscar un proveedor por nombre
+    public List<ProveedorDTO> getProveedorByNombre(String nombreProv) {
+        List<ProveedorEntity> entities = proveedorRepository.findByNombreProv(nombreProv);
+        return proveedorConverter.convertToDTOList(entities);
+    }
 }
