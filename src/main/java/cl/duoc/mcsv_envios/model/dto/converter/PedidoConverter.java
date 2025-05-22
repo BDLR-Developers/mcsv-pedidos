@@ -24,6 +24,18 @@ public class PedidoConverter implements Converter<PedidoEntity, PedidoDTO> {
                 .build();
     }
 
+    public PedidoEntity convertToEntity(PedidoDTO source) {
+        return PedidoEntity.builder()
+                .numeroPedido(source.getNumeroPedido())
+                .fechaPedido(source.getFechaPedido())
+                .montoPedido(source.getMontoPedido())
+                .estadoPedido(source.getEstadoPedido())
+                .idProveedor(source.getIdProveedor())
+                .idUsuario(source.getIdUsuario())
+                .idBodega(source.getIdBodega())
+                .build();
+    }
+    
     public List<PedidoDTO> convertToDTOList(List<PedidoEntity> source) {
         return source.stream()
                 .map(this::convert)

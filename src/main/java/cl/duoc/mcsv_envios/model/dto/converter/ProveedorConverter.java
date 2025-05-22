@@ -23,6 +23,17 @@ public class ProveedorConverter implements Converter<ProveedorEntity, ProveedorD
                 .build();
     }
 
+    public ProveedorEntity convertToEntity(ProveedorDTO source) {
+        return ProveedorEntity.builder()
+                .idProveedor(source.getIdProveedor())
+                .nombreProv(source.getNombreProv())
+                .telefonoProv(source.getTelefonoProv())
+                .correoProv(source.getCorreoProv())
+                .fechaCreacion(source.getFechaCreacion())
+                .fechaActualizacion(source.getFechaActualizacion())
+                .build();
+    }
+    
     public List<ProveedorDTO> convertToDTOList(List<ProveedorEntity> source) {
         return source.stream()
                 .map(this::convert)

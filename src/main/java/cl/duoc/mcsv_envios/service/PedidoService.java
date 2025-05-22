@@ -16,9 +16,19 @@ public class PedidoService {
     private PedidoRepository pedidoRepository;
     @Autowired
     private PedidoConverter pedidoConverter;
+    @Autowired
+    private DetallePedidoService detallePedidoService;
     
     public List<PedidoDTO> getAllPedidos() {
-        return pedidoConverter.convertToDTOList(pedidoRepository.findAll());
+        List<PedidoDTO> pedidos =  pedidoConverter.convertToDTOList(pedidoRepository.findAll());
+
+        for (PedidoDTO pedido : pedidos) {
+            pedido.setDetallePedidoEntitys(detallePedidoService.getDetallePedidoByNumeroPedido(pedido.getNumeroPedido()));
+        }
+        if (pedidos.isEmpty()) {
+            return null;
+        }
+        return pedidos;
     }
     
 }

@@ -15,7 +15,7 @@ public class DetallePedidoConverter implements Converter<DetallePedidoEntity, De
     public DetallePedidoDTO convert(DetallePedidoEntity source) {
         return DetallePedidoDTO.builder()
                 .numeroPedido(source.getNumeroPedido())
-                .idProd(source.getIdProd())
+                .idProducto(source.getIdProducto())
                 .cantidad(source.getCantidad())
                 .precio(source.getPrecio())
                 .build();
