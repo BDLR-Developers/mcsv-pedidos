@@ -1,0 +1,24 @@
+package cl.duoc.mcsv_envios.model.dto.converter;
+
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+
+import cl.duoc.mcsv_envios.model.dto.ProveedorDTO;
+import cl.duoc.mcsv_envios.model.entity.ProveedorEntity;
+
+@Component
+public class ProveedorConverter implements Converter<ProveedorEntity, ProveedorDTO>{
+
+    @Override
+    public ProveedorDTO convert(ProveedorEntity source) {
+        return ProveedorDTO.builder()
+                .idProveedor(source.getIdProveedor())
+                .nombreProv(source.getNombreProv())
+                .telefonoProv(source.getTelefonoProv())
+                .correoProv(source.getCorreoProv())
+                .fechaCreacion(source.getFechaCreacion())
+                .fechaActualizacion(source.getFechaActualizacion())
+                .build();
+    }
+
+}

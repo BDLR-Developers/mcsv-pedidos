@@ -7,5 +7,6 @@ import cl.duoc.mcsv_envios.model.entity.ProveedorEntity;
 
 @Repository
 public interface ProveedorRepository extends JpaRepository<ProveedorEntity, Integer> {
-
+    // Método para obtener todos los proveedores activos
+    ProveedorEntity findByIdProveedor(int id);
 }

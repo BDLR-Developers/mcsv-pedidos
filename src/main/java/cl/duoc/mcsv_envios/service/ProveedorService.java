@@ -17,4 +17,7 @@ public class ProveedorService {
     public List<ProveedorEntity> getAllProveedores() {
         return proveedorRepository.findAll();
     }
+    public ProveedorEntity getProveedorById(int id) {
+        return proveedorRepository.findByIdProveedor(id);
+    }
 }

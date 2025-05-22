@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,11 @@ public class ProveedorController {
     @GetMapping("/all")
     public List<ProveedorEntity> getAllProveedores() {
         return proveedorService.getAllProveedores();
+    }
+    
+    @GetMapping("/{id}")
+    public ProveedorEntity getProveedorById(@PathVariable int id) {
+        System.out.println("ID: " + id);
+        return proveedorService.getProveedorById(id);
     }
 }
