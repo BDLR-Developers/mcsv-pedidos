@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DetallePedidoPrimaryKey implements java.io.Serializable {
     private int numeroPedido;
-    private int idProd;
+    private int idProducto;
     
 }

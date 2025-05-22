@@ -21,7 +21,7 @@ public class DetallePedidoEntity {
     @Id
     private int numeroPedido;
     @Id
-    private int idProd;
+    private int idProducto;
 
     private int cantidad;
     private int precio;

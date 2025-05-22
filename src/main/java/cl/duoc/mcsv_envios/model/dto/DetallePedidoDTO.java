@@ -9,5 +9,5 @@ public class DetallePedidoDTO {
     private int numeroPedido;
     private int cantidad;
     private int precio;
-    private int idProd;
+    private int idProducto;
 }
