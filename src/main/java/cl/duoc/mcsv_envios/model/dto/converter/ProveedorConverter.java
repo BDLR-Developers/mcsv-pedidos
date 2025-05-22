@@ -1,5 +1,7 @@
 package cl.duoc.mcsv_envios.model.dto.converter;
 
+import java.util.List;
+
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -21,4 +23,9 @@ public class ProveedorConverter implements Converter<ProveedorEntity, ProveedorD
                 .build();
     }
 
+    public List<ProveedorDTO> convertToDTOList(List<ProveedorEntity> source) {
+        return source.stream()
+                .map(this::convert)
+                .toList();
+    }
 }
