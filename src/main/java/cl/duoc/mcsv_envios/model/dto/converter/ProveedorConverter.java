@@ -20,6 +20,7 @@ public class ProveedorConverter implements Converter<ProveedorEntity, ProveedorD
                 .correoProv(source.getCorreoProv())
                 .fechaCreacion(source.getFechaCreacion())
                 .fechaActualizacion(source.getFechaActualizacion())
+                .idUsuario(source.getIdUsuario())
                 .build();
     }
 
@@ -31,6 +32,7 @@ public class ProveedorConverter implements Converter<ProveedorEntity, ProveedorD
                 .correoProv(source.getCorreoProv())
                 .fechaCreacion(source.getFechaCreacion())
                 .fechaActualizacion(source.getFechaActualizacion())
+                .idUsuario(source.getIdUsuario())
                 .build();
     }
     

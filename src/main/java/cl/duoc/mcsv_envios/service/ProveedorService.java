@@ -42,7 +42,6 @@ public class ProveedorService {
         if (proveedorRepository.existsById(id)) {
             entity.setIdProveedor(id);
             proveedorRepository.save(entity);
-            System.out.println("Proveedor actualizado: " + entity);
         }else {
             return null;
         }
