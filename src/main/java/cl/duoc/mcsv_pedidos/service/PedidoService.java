@@ -1,13 +1,13 @@
-package cl.duoc.mcsv_envios.service;
+package cl.duoc.mcsv_pedidos.service;
 
 import java.util.List;
 
+import cl.duoc.mcsv_pedidos.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cl.duoc.mcsv_envios.model.dto.PedidoDTO;
-import cl.duoc.mcsv_envios.model.dto.converter.PedidoConverter;
-import cl.duoc.mcsv_envios.repository.PedidoRepository;
+import cl.duoc.mcsv_pedidos.model.dto.PedidoDTO;
+import cl.duoc.mcsv_pedidos.model.dto.converter.PedidoConverter;
 
 @Service
 public class PedidoService {

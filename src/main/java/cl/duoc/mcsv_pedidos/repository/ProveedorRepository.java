@@ -1,11 +1,11 @@
-package cl.duoc.mcsv_envios.repository;
+package cl.duoc.mcsv_pedidos.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import cl.duoc.mcsv_envios.model.entity.ProveedorEntity;
+import cl.duoc.mcsv_pedidos.model.entity.ProveedorEntity;
 
 @Repository
 public interface ProveedorRepository extends JpaRepository<ProveedorEntity, Integer> {

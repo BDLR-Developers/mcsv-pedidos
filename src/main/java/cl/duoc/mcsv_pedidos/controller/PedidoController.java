@@ -1,4 +1,4 @@
-package cl.duoc.mcsv_envios.controller;
+package cl.duoc.mcsv_pedidos.controller;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cl.duoc.mcsv_envios.model.dto.PedidoDTO;
-import cl.duoc.mcsv_envios.service.PedidoService;
+import cl.duoc.mcsv_pedidos.model.dto.PedidoDTO;
+import cl.duoc.mcsv_pedidos.service.PedidoService;
 import lombok.RequiredArgsConstructor;
 
 

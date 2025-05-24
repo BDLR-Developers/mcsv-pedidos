@@ -1,12 +1,12 @@
-package cl.duoc.mcsv_envios.model.dto.converter;
+package cl.duoc.mcsv_pedidos.model.dto.converter;
 
 import java.util.List;
 
+import cl.duoc.mcsv_pedidos.model.entity.ProveedorEntity;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import cl.duoc.mcsv_envios.model.dto.ProveedorDTO;
-import cl.duoc.mcsv_envios.model.entity.ProveedorEntity;
+import cl.duoc.mcsv_pedidos.model.dto.ProveedorDTO;
 
 @Component
 public class ProveedorConverter implements Converter<ProveedorEntity, ProveedorDTO>{

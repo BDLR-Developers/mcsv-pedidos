@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cl.duoc</groupId>
-	<artifactId>mcsv-envios</artifactId>
+	<artifactId>mcsv-pedidos</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mcsv-envios</name>
+	<name>mcsv-pedidos</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>

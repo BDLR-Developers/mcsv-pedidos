@@ -1,7 +1,8 @@
-package cl.duoc.mcsv_envios.controller;
+package cl.duoc.mcsv_pedidos.controller;
 
 import java.util.List;
 
+import cl.duoc.mcsv_pedidos.service.ProveedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cl.duoc.mcsv_envios.model.dto.ProveedorDTO;
-import cl.duoc.mcsv_envios.service.ProveedorService;
+import cl.duoc.mcsv_pedidos.model.dto.ProveedorDTO;
 import lombok.RequiredArgsConstructor;
 
 

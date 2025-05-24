@@ -1,4 +1,4 @@
-package cl.duoc.mcsv_envios.model.dto;
+package cl.duoc.mcsv_pedidos.model.dto;
 
 import java.time.LocalDate;
 

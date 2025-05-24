@@ -1,9 +1,9 @@
-package cl.duoc.mcsv_envios.model.dto;
+package cl.duoc.mcsv_pedidos.model.dto;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import cl.duoc.mcsv_envios.model.entity.DetallePedidoEntity;
+import cl.duoc.mcsv_pedidos.model.entity.DetallePedidoEntity;
 import lombok.Builder;
 import lombok.Data;
 

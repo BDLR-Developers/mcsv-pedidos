@@ -1,12 +1,12 @@
-package cl.duoc.mcsv_envios.service;
+package cl.duoc.mcsv_pedidos.service;
 
 import java.util.List;
 
+import cl.duoc.mcsv_pedidos.repository.DetallePedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cl.duoc.mcsv_envios.model.entity.DetallePedidoEntity;
-import cl.duoc.mcsv_envios.repository.DetallePedidoRepository;
+import cl.duoc.mcsv_pedidos.model.entity.DetallePedidoEntity;
 
 @Service
 public class DetallePedidoService {

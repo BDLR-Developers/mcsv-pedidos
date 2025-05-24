@@ -1,4 +1,4 @@
-package cl.duoc.mcsv_envios.model.entity;
+package cl.duoc.mcsv_pedidos.model.entity;
 
 import java.time.LocalDate;
 
@@ -15,14 +15,14 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-@Table(name = "pedido")
-public class PedidoEntity {
+@Table(name = "proveedor")
+public class ProveedorEntity {
     @Id
-    private int numeroPedido;
-    private LocalDate fechaPedido;
-    private int montoPedido;
-    private int estadoPedido;
     private int idProveedor;
+    private String nombreProv;
+    private String telefonoProv;
+    private String correoProv;
+    private LocalDate fechaCreacion;
+    private LocalDate fechaActualizacion;
     private int idUsuario;
-    private int idBodega;
 }

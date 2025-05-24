@@ -1,14 +1,14 @@
-package cl.duoc.mcsv_envios.service;
+package cl.duoc.mcsv_pedidos.service;
 
 import java.util.List;
 
+import cl.duoc.mcsv_pedidos.repository.ProveedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cl.duoc.mcsv_envios.model.dto.ProveedorDTO;
-import cl.duoc.mcsv_envios.model.dto.converter.ProveedorConverter;
-import cl.duoc.mcsv_envios.model.entity.ProveedorEntity;
-import cl.duoc.mcsv_envios.repository.ProveedorRepository;
+import cl.duoc.mcsv_pedidos.model.dto.ProveedorDTO;
+import cl.duoc.mcsv_pedidos.model.dto.converter.ProveedorConverter;
+import cl.duoc.mcsv_pedidos.model.entity.ProveedorEntity;
 
 
 @Service

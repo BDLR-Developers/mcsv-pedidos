@@ -1,4 +1,4 @@
-package cl.duoc.mcsv_envios;
+package cl.duoc.mcsv_pedidos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
