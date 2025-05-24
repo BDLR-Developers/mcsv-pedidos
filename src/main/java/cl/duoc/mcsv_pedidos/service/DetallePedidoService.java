@@ -2,16 +2,18 @@ package cl.duoc.mcsv_pedidos.service;
 
 import java.util.List;
 
-import cl.duoc.mcsv_pedidos.repository.DetallePedidoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cl.duoc.mcsv_pedidos.model.entity.DetallePedidoEntity;
+import cl.duoc.mcsv_pedidos.model.entity.clavesCompuestas.DetallePedidoPrimaryKey;
+import cl.duoc.mcsv_pedidos.repository.DetallePedidoRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class DetallePedidoService {
-    @Autowired
-    private DetallePedidoRepository detallePedidoRepository;
+    
+    private final DetallePedidoRepository detallePedidoRepository;
 
     public List<DetallePedidoEntity> getAllDetallePedidos() {
         return detallePedidoRepository.findAll();
@@ -19,4 +21,11 @@ public class DetallePedidoService {
     public  List<DetallePedidoEntity> getDetallePedidoByNumeroPedido(int id) {
         return detallePedidoRepository.findByNumeroPedido(id);
     }
+    public DetallePedidoEntity guardar(DetallePedidoEntity detallePedido) {
+        return detallePedidoRepository.save(detallePedido);
+    }
+    public void eliminar(DetallePedidoPrimaryKey id) {
+        detallePedidoRepository.deleteById(id);
+    }
+
 }

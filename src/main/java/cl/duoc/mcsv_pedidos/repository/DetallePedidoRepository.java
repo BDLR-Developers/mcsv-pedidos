@@ -12,4 +12,5 @@ import cl.duoc.mcsv_pedidos.model.entity.clavesCompuestas.DetallePedidoPrimaryKe
 public interface DetallePedidoRepository extends JpaRepository<DetallePedidoEntity, DetallePedidoPrimaryKey> {
     // Aquí puedes agregar métodos personalizados si es necesario
     public List<DetallePedidoEntity> findByNumeroPedido(int numeroPedido);
+    public void deleteById(DetallePedidoPrimaryKey id);
 }
