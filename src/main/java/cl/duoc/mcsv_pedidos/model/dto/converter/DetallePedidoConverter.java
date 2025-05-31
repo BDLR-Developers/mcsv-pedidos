@@ -12,6 +12,9 @@ public class DetallePedidoConverter implements Converter<DetallePedidoEntity, De
 
     @Override
     public DetallePedidoDTO convert(DetallePedidoEntity source) {
+        if(source == null) {
+            return null;
+        }
         return DetallePedidoDTO.builder()
                 .numeroPedido(source.getNumeroPedido())
                 .idProducto(source.getIdProducto())
