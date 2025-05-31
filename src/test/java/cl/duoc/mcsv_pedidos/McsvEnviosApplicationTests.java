@@ -1,4 +1,4 @@
-package cl.duoc.mcsv_envios;
+package cl.duoc.mcsv_pedidos;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
