@@ -10,9 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.List;
 
-class DetallePedidoConverterTest {
-    
-
+class DetallePedidoConverterTest {    
     @Test
     void convert_ShouldReturnEntityOk() {
         //given 
@@ -34,11 +32,10 @@ class DetallePedidoConverterTest {
         DetallePedidoDTO dto = converter.convert(entity);
         //then
         assertNull(dto);
-        assertEquals(entity.getCantidad(), dto.getCantidad());
     }
 
     @Test
-    void convertToDTOList_ShouldReturnEntitysOk() {
+    void convertToDTOList_ShouldReturnEntitiesOk() {
         //given
         DetallePedidoConverter converter = new DetallePedidoConverter();
         DetallePedidoEntity entity1 = DetallePedidoEntity.builder().cantidad(10).idProducto(1).numeroPedido(11).precio(111).build();
@@ -62,5 +59,4 @@ class DetallePedidoConverterTest {
         assertEquals(entity2.getPrecio(), dtos.get(1).getPrecio());
         assertEquals(entity3.getPrecio(), dtos.get(2).getPrecio());
     }
-
 }
