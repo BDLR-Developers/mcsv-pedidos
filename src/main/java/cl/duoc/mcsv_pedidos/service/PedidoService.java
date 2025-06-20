@@ -47,6 +47,7 @@ public class PedidoService {
     public PedidoDTO guardar(PedidoDTO pedido) {
         for(DetallePedidoEntity detalle : pedido.getDetallePedidoEntitys()) {
             detallePedidoService.guardar(detalle);
+            System.out.println("Detalle guardado: " + detalle);
         }
         return pedidoConverter.convert(pedidoRepository.save(pedidoConverter.convertToEntity(pedido)));
     }
@@ -54,9 +55,6 @@ public class PedidoService {
     public Optional<PedidoDTO> update(Integer id, PedidoDTO pedido) {
         Optional<PedidoDTO> pedidoOptional = getPedidoById(id);
         if (pedidoOptional.isPresent()) {
-            for(DetallePedidoEntity detalle : pedido.getDetallePedidoEntitys()) {
-                detallePedidoService.guardar(detalle);
-            }
             return Optional.of(guardar(pedido));
         }
         return pedidoOptional;
