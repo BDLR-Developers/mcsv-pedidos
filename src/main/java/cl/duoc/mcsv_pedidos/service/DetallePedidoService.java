@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import cl.duoc.mcsv_pedidos.model.entity.DetallePedidoEntity;
-import cl.duoc.mcsv_pedidos.model.entity.clavesCompuestas.DetallePedidoPrimaryKey;
+import cl.duoc.mcsv_pedidos.model.entity.clavescompuestas.DetallePedidoPrimaryKey;
 import cl.duoc.mcsv_pedidos.repository.DetallePedidoRepository;
 import lombok.RequiredArgsConstructor;
 

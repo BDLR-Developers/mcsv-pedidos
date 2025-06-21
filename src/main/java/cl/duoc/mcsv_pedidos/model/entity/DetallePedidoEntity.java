@@ -1,6 +1,6 @@
 package cl.duoc.mcsv_pedidos.model.entity;
 
-import cl.duoc.mcsv_pedidos.model.entity.clavesCompuestas.DetallePedidoPrimaryKey;
+import cl.duoc.mcsv_pedidos.model.entity.clavescompuestas.DetallePedidoPrimaryKey;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;

@@ -1,4 +1,4 @@
-package cl.duoc.mcsv_pedidos.model.entity.clavesCompuestas;
+package cl.duoc.mcsv_pedidos.model.entity.clavescompuestas;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

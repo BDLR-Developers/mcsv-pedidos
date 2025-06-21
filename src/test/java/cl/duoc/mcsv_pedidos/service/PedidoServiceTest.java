@@ -16,7 +16,7 @@ import cl.duoc.mcsv_pedidos.model.dto.PedidoDTO;
 import cl.duoc.mcsv_pedidos.model.dto.converter.PedidoConverter;
 import cl.duoc.mcsv_pedidos.model.entity.DetallePedidoEntity;
 import cl.duoc.mcsv_pedidos.model.entity.PedidoEntity;
-import cl.duoc.mcsv_pedidos.model.entity.clavesCompuestas.DetallePedidoPrimaryKey;
+import cl.duoc.mcsv_pedidos.model.entity.clavescompuestas.DetallePedidoPrimaryKey;
 import cl.duoc.mcsv_pedidos.repository.PedidoRepository;
 
 @ExtendWith(MockitoExtension.class)

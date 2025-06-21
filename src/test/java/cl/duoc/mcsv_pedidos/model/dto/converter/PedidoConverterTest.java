@@ -3,10 +3,10 @@ package cl.duoc.mcsv_pedidos.model.dto.converter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import javax.swing.text.html.parser.Entity;
+
 
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -16,12 +16,18 @@ import cl.duoc.mcsv_pedidos.model.entity.PedidoEntity;
 
 public class PedidoConverterTest {
     @Test
-    void convert_ShouldReturnEntityOk() {
+    void convert_ShouldReturnEntityOk(){
         //given
         PedidoConverter converter = new PedidoConverter();
-        PedidoEntity entity = PedidoEntity.builder().estadoPedido(1).
-            fechaPedido(LocalDate.of(2000,12,6)).idBodega(2).idProveedor(3).
-            idUsuario(4).montoPedido(5).numeroPedido(6).build();
+        PedidoEntity entity = PedidoEntity.builder()
+            .estadoPedido(1)
+            .fechaPedido(LocalDate.of(2000,12,6))
+            .idBodega(2)
+            .idProveedor(3)
+            .idUsuario(4)
+            .montoPedido(5)
+            .numeroPedido(6)
+            .build();
         //when
         PedidoDTO dto = converter.convert(entity);
         //then

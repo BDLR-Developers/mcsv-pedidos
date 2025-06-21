@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import cl.duoc.mcsv_pedidos.model.entity.DetallePedidoEntity;
-import cl.duoc.mcsv_pedidos.model.entity.clavesCompuestas.DetallePedidoPrimaryKey;
+import cl.duoc.mcsv_pedidos.model.entity.clavescompuestas.DetallePedidoPrimaryKey;
 import cl.duoc.mcsv_pedidos.repository.DetallePedidoRepository;
 
 @ExtendWith(MockitoExtension.class)
