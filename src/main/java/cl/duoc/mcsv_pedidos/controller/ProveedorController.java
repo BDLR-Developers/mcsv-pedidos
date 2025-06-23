@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.duoc.mcsv_pedidos.assemblers.ProveedorModelAssembler;
 import cl.duoc.mcsv_pedidos.model.dto.ProveedorDTO;
 import cl.duoc.mcsv_pedidos.service.ProveedorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +37,7 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "Proveedores", description = "Controlador para gestionar proveedores")
 public class ProveedorController {
     private final ProveedorService proveedorService;
-
+    private final ProveedorModelAssembler proveedorModelAssembler;
     // Endpoint para ver estado de la API
     //URL: http://localhost:8083/api/v1/proveedor/status
     @GetMapping("/status")
@@ -96,7 +97,7 @@ public class ProveedorController {
     public ResponseEntity<?> getProveedorById(@PathVariable("id") int id) {
         Optional<ProveedorDTO> proveedorOptional = proveedorService.getProveedorById(id);
         if (proveedorOptional.isPresent()) {
-            return ResponseEntity.ok(proveedorOptional.orElseThrow());
+            return ResponseEntity.ok(proveedorModelAssembler.toModel(proveedorOptional.orElseThrow()));
         }
         Map<String, Object> errorBody = new HashMap<>();
             errorBody.put("error", "Solicitud inválida");
@@ -120,7 +121,7 @@ public class ProveedorController {
         }
     )
     public ResponseEntity<?> createProveedor(@RequestBody ProveedorDTO proveedorDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(proveedorService.createProveedor(proveedorDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(proveedorModelAssembler.toModel(proveedorService.createProveedor(proveedorDTO)));
     }
 
 
@@ -147,7 +148,7 @@ public class ProveedorController {
     public ResponseEntity<?> updateProveedor(@PathVariable int id, @RequestBody ProveedorDTO proveedorDTO) {
         Optional<ProveedorDTO> proveedorOptional = proveedorService.updateProveedor(proveedorDTO, id);
         if (proveedorOptional.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(proveedorOptional.orElseThrow());
+            return ResponseEntity.status(HttpStatus.CREATED).body(proveedorModelAssembler.toModel(proveedorOptional.orElseThrow()));
         }
             Map<String, Object> errorBody = new HashMap<>();
             errorBody.put("error", "Solicitud inválida");
@@ -179,7 +180,7 @@ public class ProveedorController {
     public ResponseEntity<?> deleteProveedor(@PathVariable int id) {
         Optional<ProveedorDTO> proveedorOptional = proveedorService.deleteProveedor(id);
         if (proveedorOptional.isPresent()) {
-            return ResponseEntity.ok(proveedorOptional.orElseThrow());
+            return ResponseEntity.ok(proveedorModelAssembler.toModel(proveedorOptional.orElseThrow()));
         }
         Map<String, Object> errorBody = new HashMap<>();
             errorBody.put("error", "Solicitud inválida");

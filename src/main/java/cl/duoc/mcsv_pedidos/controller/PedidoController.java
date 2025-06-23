@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.duoc.mcsv_pedidos.assemblers.PedidoModelAssembler;
 import cl.duoc.mcsv_pedidos.model.dto.PedidoDTO;
 import cl.duoc.mcsv_pedidos.service.PedidoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,7 +35,9 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "Pedidos", description = "Controlador para gestionar pedidos")  
 public class PedidoController {
     private final PedidoService pedidoService;
-    
+    private final PedidoModelAssembler pedidoModelAssembler; // <-- agrega esto
+
+
     //Endpoint para obtener todos los pedidos
     //URL: http://localhost:8083/api/v1/pedido/all
     @GetMapping("/all")
@@ -75,7 +78,7 @@ public class PedidoController {
     public ResponseEntity<?> getPedido(@PathVariable("id") Integer id) {
         Optional<PedidoDTO> pedidoOptional = pedidoService.getPedidoById(id);
         if(pedidoOptional.isPresent()){
-            return ResponseEntity.ok(pedidoOptional.orElseThrow());
+            return ResponseEntity.ok(pedidoModelAssembler.toModel(pedidoOptional.orElseThrow()));
         }
         Map<String, Object> errorBody = new HashMap<>();
             errorBody.put("error", "Solicitud inválida");
@@ -97,7 +100,7 @@ public class PedidoController {
                 schema = @Schema(implementation = PedidoDTO.class)))}
         )
     public ResponseEntity<?> guardar(@RequestBody PedidoDTO pedido) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.guardar(pedido));
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedidoModelAssembler.toModel(pedidoService.guardar(pedido)));
     }
 
     //Endpoint para actualizar un pedido
@@ -120,7 +123,7 @@ public class PedidoController {
     public ResponseEntity<?> actualizar(@PathVariable Integer id, @RequestBody PedidoDTO pedido) {
         Optional<PedidoDTO> pedidoOptional = pedidoService.update(id, pedido);
         if(pedidoOptional.isPresent()){
-            return ResponseEntity.ok(pedidoOptional.orElseThrow());
+            return ResponseEntity.ok(pedidoModelAssembler.toModel(pedidoOptional.orElseThrow()));
         }
         Map<String, Object> errorBody = new HashMap<>();
             errorBody.put("error", "Solicitud inválida");
@@ -150,7 +153,7 @@ public class PedidoController {
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         Optional<PedidoDTO> pedidoOptional = pedidoService.delete(id);
         if (pedidoOptional.isPresent()) {
-            return ResponseEntity.ok(pedidoOptional.orElseThrow());
+            return ResponseEntity.ok(pedidoModelAssembler.toModel(pedidoOptional.orElseThrow()));
         }
         Map<String, Object> errorBody = new HashMap<>();
             errorBody.put("error", "Solicitud inválida");
