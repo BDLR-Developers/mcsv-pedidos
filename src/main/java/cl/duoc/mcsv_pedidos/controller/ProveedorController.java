@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,8 +30,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-
-
 
 @RestController
 @RequestMapping("/api/v1/proveedor")
@@ -70,8 +70,15 @@ public class ProveedorController {
                     schema = @Schema(implementation = ProveedorDTO.class)))
         }
     )
-    public List<ProveedorDTO> getAllProveedores() {
-        return proveedorService.getAllProveedores();
+    public ResponseEntity<CollectionModel<EntityModel<ProveedorDTO>>> getAllProveedores() {
+        List<ProveedorDTO> proveedores = proveedorService.getAllProveedores();
+        if (proveedores.isEmpty()) {
+            return ResponseEntity.ok(CollectionModel.empty());
+        }
+        List<EntityModel<ProveedorDTO>> proveedorModels = proveedores.stream()
+            .map(proveedorModelAssembler::toModel)
+            .toList();
+        return ResponseEntity.ok(CollectionModel.of(proveedorModels));
     }
     
     //Endpoint para obtener un proveedor por ID

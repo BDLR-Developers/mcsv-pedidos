@@ -1,10 +1,13 @@
 package cl.duoc.mcsv_pedidos.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,12 +53,16 @@ public class PedidoController {
                 mediaType = "application/json",
                 schema = @Schema(implementation = PedidoDTO.class)))}
         )
-    public List<PedidoDTO> getAllPedidos() {
+    public ResponseEntity<CollectionModel<EntityModel<PedidoDTO>>> getAllPedidos() {
         List<PedidoDTO> pedidos =  pedidoService.getAllPedidos();
         if (pedidos.isEmpty()) {
-            return null;
+            return ResponseEntity.ok(CollectionModel.empty());
         }
-        return pedidos;
+        List<EntityModel<PedidoDTO>> pedidoModels = new ArrayList<>();
+        for (PedidoDTO pedido : pedidos) {
+            pedidoModels.add(pedidoModelAssembler.toModel(pedido));
+        }
+        return ResponseEntity.ok(CollectionModel.of(pedidoModels));
     }
     
     //Endpoint para obtener un pedido por id
