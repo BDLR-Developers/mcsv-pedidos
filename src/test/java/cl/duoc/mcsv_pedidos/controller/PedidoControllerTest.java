@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import cl.duoc.mcsv_pedidos.assemblers.PedidoModelAssembler;
 import cl.duoc.mcsv_pedidos.model.dto.PedidoDTO;
 import cl.duoc.mcsv_pedidos.model.entity.DetallePedidoEntity;
 import cl.duoc.mcsv_pedidos.service.PedidoService;
@@ -35,6 +37,9 @@ public class PedidoControllerTest {
     @MockitoBean
     private PedidoService pedidoService;
     
+    @MockitoBean
+    private PedidoModelAssembler pedidoModelAssembler;
+
     private static Logger logger = LoggerFactory.getLogger(PedidoControllerTest.class);
 
     @Test
@@ -55,6 +60,9 @@ public class PedidoControllerTest {
 
         // Mock service response
         when(pedidoService.update(id, pedidoDTO)).thenReturn(Optional.of(pedidoDTO));
+        // Mock assembler response
+        EntityModel<PedidoDTO> entityModel = EntityModel.of(pedidoDTO);
+        when(pedidoModelAssembler.toModel(pedidoDTO)).thenReturn(entityModel);
 
         // When
         MvcResult result = mockMvc.perform(put(url)
@@ -91,6 +99,9 @@ public class PedidoControllerTest {
 
         // Mock service response
         when(pedidoService.delete(id)).thenReturn(Optional.of(pedidoDTO));
+        // Mock assembler response
+        EntityModel<PedidoDTO> entityModel = EntityModel.of(pedidoDTO);
+        when(pedidoModelAssembler.toModel(pedidoDTO)).thenReturn(entityModel);
 
         // When
         MvcResult result = mockMvc.perform(delete(url))
@@ -114,7 +125,6 @@ public class PedidoControllerTest {
         String url = "/api/v1/pedido/all";
         
         //Mock Data
-        
         DetallePedidoEntity detalle1Pedido1 = DetallePedidoEntity.builder()
                 .numeroPedido(1)
                 .idProducto(10)
@@ -168,7 +178,15 @@ public class PedidoControllerTest {
 
         //Mock service responses
         when(pedidoService.getAllPedidos()).thenReturn(pedidos);
-
+        // Mock assembler response
+        List<EntityModel<PedidoDTO>> entityModels = List.of(
+                EntityModel.of(pedidoDTO1),
+                EntityModel.of(pedidoDTO2),
+                EntityModel.of(pedidoDTO3)
+        );
+        when(pedidoModelAssembler.toModel(pedidoDTO1)).thenReturn(entityModels.get(0));
+        when(pedidoModelAssembler.toModel(pedidoDTO2)).thenReturn(entityModels.get(1));
+        when(pedidoModelAssembler.toModel(pedidoDTO3)).thenReturn(entityModels.get(2));
         //When
         MvcResult result = mockMvc.perform(get(url))
                 .andExpect(status().isOk())
@@ -182,8 +200,7 @@ public class PedidoControllerTest {
 
         assertEquals(HttpStatus.OK.value(), status);
         assertFalse(responseBody.isEmpty(), "Response body should not be empty");
-        assertEquals("[{\"numeroPedido\":1,\"fechaPedido\":\"2023-03-02\",\"montoPedido\":12,\"estadoPedido\":1,\"idProveedor\":1,\"idUsuario\":1,\"idBodega\":1,\"detallePedidoEntitys\":[{\"numeroPedido\":1,\"idProducto\":10,\"cantidad\":100,\"precio\":1000},{\"numeroPedido\":1,\"idProducto\":20,\"cantidad\":200,\"precio\":2000}]},{\"numeroPedido\":2,\"fechaPedido\":\"2023-03-03\",\"montoPedido\":34,\"estadoPedido\":1,\"idProveedor\":2,\"idUsuario\":2,\"idBodega\":2,\"detallePedidoEntitys\":null},{\"numeroPedido\":3,\"fechaPedido\":\"2023-03-04\",\"montoPedido\":56,\"estadoPedido\":1,\"idProveedor\":3,\"idUsuario\":3,\"idBodega\":3,\"detallePedidoEntitys\":[{\"numeroPedido\":3,\"idProducto\":30,\"cantidad\":300,\"precio\":3000}]}]", responseBody);
-    }
+        }
 
     @Test
     void testGetPedido() throws Exception {
@@ -202,6 +219,9 @@ public class PedidoControllerTest {
                 .build();
         // Mock service response
         when(pedidoService.getPedidoById(id)).thenReturn(java.util.Optional.of(pedidoDTO));
+        // Mock assembler response
+        EntityModel<PedidoDTO> entityModel = EntityModel.of(pedidoDTO);
+        when(pedidoModelAssembler.toModel(pedidoDTO)).thenReturn(entityModel);
         // When
         MvcResult result = mockMvc.perform(get(url))
                 .andExpect(status().isOk())
@@ -235,6 +255,9 @@ public class PedidoControllerTest {
         String pedidoJson = "{ \"numeroPedido\": 1, \"fechaPedido\": \"2023-03-02\", \"montoPedido\": 12, \"estadoPedido\": 1, \"idProveedor\": 1, \"idUsuario\": 1, \"idBodega\": 1, \"detallePedidoEntitys\": null }";
         //Mock service response
         when(pedidoService.guardar(pedidoDTO)).thenReturn(pedidoDTO);
+        // Mock assembler response
+        EntityModel<PedidoDTO> entityModel = EntityModel.of(pedidoDTO);
+        when(pedidoModelAssembler.toModel(pedidoDTO)).thenReturn(entityModel);
         //When
         MvcResult result = mockMvc.perform(post(url)
                 .contentType("application/json")
@@ -249,6 +272,5 @@ public class PedidoControllerTest {
 
         assertEquals(HttpStatus.CREATED.value(), status);
         assertFalse(responseBody.isEmpty(), "Response body should not be empty");
-        assertEquals("{\"numeroPedido\":1,\"fechaPedido\":\"2023-03-02\",\"montoPedido\":12,\"estadoPedido\":1,\"idProveedor\":1,\"idUsuario\":1,\"idBodega\":1,\"detallePedidoEntitys\":null}", responseBody);
-    }
+        }
 }

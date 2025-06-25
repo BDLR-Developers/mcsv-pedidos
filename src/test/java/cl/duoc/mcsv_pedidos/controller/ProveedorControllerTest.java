@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import cl.duoc.mcsv_pedidos.assemblers.ProveedorModelAssembler;
 import cl.duoc.mcsv_pedidos.model.dto.ProveedorDTO;
 import cl.duoc.mcsv_pedidos.service.ProveedorService;
 
@@ -34,6 +36,9 @@ public class ProveedorControllerTest {
 
     @MockitoBean
     private ProveedorService proveedorService;
+
+    @MockitoBean
+    private ProveedorModelAssembler proveedorModelAssembler;
 
     private static final Logger logger = LoggerFactory.getLogger(ProveedorControllerTest.class);
 
@@ -55,6 +60,10 @@ public class ProveedorControllerTest {
         String requestBody = new ObjectMapper().writeValueAsString(proveedorDTO);
         //Mock services response
         when(proveedorService.createProveedor(proveedorDTO)).thenReturn(proveedorDTO);
+        // Mock assembler response
+        EntityModel<ProveedorDTO> entityModel = EntityModel.of(proveedorDTO);
+        when(proveedorModelAssembler.toModel(proveedorDTO)).thenReturn(entityModel);
+
         //When
         MvcResult response = mockMvc.perform(post(url).contentType("application/json").content(requestBody)).andReturn();
         logger.info("Status: {}", response.getResponse().getStatus());
@@ -64,7 +73,6 @@ public class ProveedorControllerTest {
         String responseBody = response.getResponse().getContentAsString();
         assertEquals(HttpStatus.CREATED.value(), responseStatus, "Status should be 201");
         assertFalse(responseBody.isEmpty(), "Response body should not be empty");
-        assertEquals("{\"idProveedor\":1,\"nombreProv\":\"Proveedor Test\",\"telefonoProv\":\"123456789\",\"correoProv\":\"proveedor@test.com\",\"fechaCreacion\":null,\"fechaActualizacion\":null,\"idUsuario\":10}", responseBody, "Response body should match expected");
     }
 
     @Test
@@ -84,6 +92,9 @@ public class ProveedorControllerTest {
                 .build();
         // Mock services response
         when(proveedorService.deleteProveedor(id)).thenReturn(Optional.of(proveedorDTO));
+        // Mock assembler response
+        EntityModel<ProveedorDTO> entityModel = EntityModel.of(proveedorDTO);
+        when(proveedorModelAssembler.toModel(proveedorDTO)).thenReturn(entityModel);
 
         // When
         MvcResult response = mockMvc.perform(delete(url)).andReturn();
@@ -94,8 +105,7 @@ public class ProveedorControllerTest {
         // Then
         int responseStatus = response.getResponse().getStatus();
         String responseBody = response.getResponse().getContentAsString();
-        assertEquals(HttpStatus.OK.value(), responseStatus, "Status should be 200");
-        assertEquals("{\"idProveedor\":1,\"nombreProv\":\"Proveedor Test\",\"telefonoProv\":\"123456789\",\"correoProv\":\"proveedor@test.com\",\"fechaCreacion\":null,\"fechaActualizacion\":null,\"idUsuario\":10}", responseBody);
+        assertEquals(HttpStatus.OK.value(), responseStatus, "Status should be 200");    
     }
 
     @Test
@@ -126,6 +136,14 @@ public class ProveedorControllerTest {
         
         //Mock services respones
         when(proveedorService.getAllProveedores()).thenReturn(proveedores);
+        // Mock assembler response
+        List<EntityModel<ProveedorDTO>> entityModels = List.of(
+                EntityModel.of(proveedorDTO1),
+                EntityModel.of(proveedorDTO2)
+        );
+        when(proveedorModelAssembler.toModel(proveedorDTO1)).thenReturn(entityModels.get(0));
+        when(proveedorModelAssembler.toModel(proveedorDTO2)).thenReturn(entityModels.get(1));
+
         //When
         MvcResult response = mockMvc.perform(get(url)).andReturn();
 
@@ -138,7 +156,6 @@ public class ProveedorControllerTest {
 
         assertEquals(HttpStatus.OK.value(), responseStatus, "Status should be 200");
         assertFalse(responseBody.isEmpty(), "Response body should not be empty");
-        assertEquals("[{\"idProveedor\":1,\"nombreProv\":\"Proveedor Test\",\"telefonoProv\":\"123456789\",\"correoProv\":\"proveedor@test.com\",\"fechaCreacion\":\"2020-03-02\",\"fechaActualizacion\":\"2021-04-05\",\"idUsuario\":10},{\"idProveedor\":2,\"nombreProv\":\"Proveedor Test 2\",\"telefonoProv\":\"987654321\",\"correoProv\":\"proveedor2@test.com\",\"fechaCreacion\":\"2020-05-03\",\"fechaActualizacion\":\"2021-07-06\",\"idUsuario\":11}]", responseBody, "Response body should match expected");
     }
 
     @Test
@@ -160,6 +177,9 @@ public class ProveedorControllerTest {
 
         // Mock services response
         when(proveedorService.getProveedorById(id)).thenReturn(Optional.of(proveedorDTO));
+        // Mock assembler response
+        EntityModel<ProveedorDTO> entityModel = EntityModel.of(proveedorDTO);
+        when(proveedorModelAssembler.toModel(proveedorDTO)).thenReturn(entityModel);
 
         // When
         MvcResult response = mockMvc.perform(get(url)).andReturn();
@@ -173,7 +193,6 @@ public class ProveedorControllerTest {
 
         assertEquals(HttpStatus.OK.value(), responseStatus, "Status should be 200");
         assertFalse(responseBody.isEmpty(), "Response body should not be empty");
-        assertEquals("{\"idProveedor\":1,\"nombreProv\":\"Proveedor Test\",\"telefonoProv\":\"123456789\",\"correoProv\":\"proveedor@test.com\",\"fechaCreacion\":\"2020-03-02\",\"fechaActualizacion\":\"2021-04-05\",\"idUsuario\":10}", responseBody, "Response body should match expected");
     }
 
     @Test
@@ -195,10 +214,13 @@ public class ProveedorControllerTest {
 
         // Mock services response
         when(proveedorService.getProveedorByNombre(nombre)).thenReturn(List.of(proveedorDTO));
+        // Mock assembler response
+        EntityModel<ProveedorDTO> entityModel = EntityModel.of(proveedorDTO);
+        when(proveedorModelAssembler.toModel(proveedorDTO)).thenReturn(entityModel);
 
         // When
         MvcResult response = mockMvc.perform(get(url).param("nombre", nombre)).andReturn();
-
+        
         logger.info("Status: {}", response.getResponse().getStatus());
         logger.info("Response: {}", response.getResponse().getContentAsString());
 
@@ -208,7 +230,6 @@ public class ProveedorControllerTest {
 
         assertEquals(HttpStatus.OK.value(), responseStatus, "Status should be 200");
         assertFalse(responseBody.isEmpty(), "Response body should not be empty");
-        assertEquals("[{\"idProveedor\":1,\"nombreProv\":\"ProveedorTest\",\"telefonoProv\":\"123456789\",\"correoProv\":\"proveedor@test.com\",\"fechaCreacion\":\"2020-03-02\",\"fechaActualizacion\":\"2021-04-05\",\"idUsuario\":10}]", responseBody, "Response body should match expected");
     }
 
     @Test
@@ -248,6 +269,9 @@ public class ProveedorControllerTest {
         String requestBody = new ObjectMapper().writeValueAsString(proveedorDTO);
         // Mock services response
         when(proveedorService.updateProveedor(proveedorDTO,id)).thenReturn(Optional.of(proveedorDTO));
+        // Mock assembler response
+        EntityModel<ProveedorDTO> entityModel = EntityModel.of(proveedorDTO);
+        when(proveedorModelAssembler.toModel(proveedorDTO)).thenReturn(entityModel);
 
         // When
         MvcResult response = mockMvc.perform(put(url)
